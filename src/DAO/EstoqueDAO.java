@@ -5,7 +5,10 @@ import Util.ConnectionMysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EstoqueDAO {
 
@@ -35,4 +38,34 @@ public class EstoqueDAO {
 
         return estoque;
     }
+
+    public List<Estoque> findAll(){
+
+        List<Estoque> objects = new ArrayList<>();
+        try {
+            Connection conn = ConnectionMysql.openConnection();
+
+            String sql = "SELECT * FROM estoque";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+                Estoque estoque = new Estoque();
+                estoque.setIdEstoque(resultSet.getInt("id_estoque"));
+                estoque.setMarca(resultSet.getString("marca"));
+                estoque.setModelo(resultSet.getString("modelo"));
+                estoque.setAno(resultSet.getDate("ano_fabricacao"));
+                estoque.setCor(resultSet.getString("cor"));
+                objects.add(estoque);
+            }
+
+
+        }catch (SQLException e){
+            System.out.println("Erro no findAll: "+e.getMessage());
+        }
+        return objects;
+    }
+
+
 }
+
