@@ -1,13 +1,17 @@
 package Entidades;
 
-public class Cliente {
+import java.util.Date;
+
+public class Cliente extends Pessoa{
 
     private  int idCliente;
-    private Pessoa pessoa;
 
-    public Cliente(int idCliente, Pessoa pessoa) {
+    public Cliente(String cpf, Date data_nascimento, String email, int idPessoa, String nome, String telefone, int idCliente) {
+        super(cpf, data_nascimento, email, idPessoa, nome, telefone);
         this.idCliente = idCliente;
-        this.pessoa = pessoa;
+    }
+
+    public Cliente() {
     }
 
     public int getIdCliente() {
@@ -18,11 +22,9 @@ public class Cliente {
         this.idCliente = idCliente;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
+    @Override
+    public String toString() {
+        return super.toString();
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 }
