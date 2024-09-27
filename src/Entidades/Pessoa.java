@@ -20,6 +20,9 @@ public class Pessoa {
         this.telefone = telefone;
     }
 
+    public Pessoa() {
+    }
+
     public String getCpf() {
         return cpf;
     }
@@ -66,5 +69,17 @@ public class Pessoa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "cpf='" + cpf + '\'' +
+                ", idPessoa=" + idPessoa +
+                ", nome='" + nome + '\'' +
+                ", data_nascimento=" + data_nascimento +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                '}';
     }
 }
