@@ -81,5 +81,40 @@ public class FuncionarioDAO {
         }
         return objects;
     }
+
+    public Funcionario findById(int id){
+        Funcionario funcionario = new Funcionario();
+        try {
+
+            Connection coon = ConnectionMysql.openConnection();
+
+            String sqlFindByID = "select * from funcionario join pessoa on funcionario.pessoa_idpessoa = pessoa.id_pessoa"+
+                    " where funcionario.id_funcionario = ?";
+
+            PreparedStatement statementFindById = coon.prepareStatement(sqlFindByID);
+            statementFindById.setInt(1, id);
+            ResultSet resultSet = statementFindById.executeQuery();
+
+            while (resultSet.next()){
+
+                funcionario.setIdFuncionario(resultSet.getInt("id_funcionario"));
+                funcionario.setCargo(resultSet.getString("cargo"));
+                funcionario.setSalario(resultSet.getDouble("salario"));
+                funcionario.setSetor(resultSet.getString("setor"));
+                funcionario.setStatus(resultSet.getInt("status"));
+                funcionario.setIdPessoa(resultSet.getInt("id_pessoa"));
+                funcionario.setCpf(resultSet.getString("cpf"));
+                funcionario.setNome(resultSet.getString("nome"));
+                funcionario.setData_nascimento(resultSet.getDate("data_nascimento"));
+                funcionario.setEmail(resultSet.getString("email"));
+                funcionario.setTelefone(resultSet.getString("telefone"));
+            }
+
+        }catch (SQLException e){
+            System.out.println("Erro ao buscar "+e.getMessage());
+        }
+
+        return funcionario;
+    }
 }
 
