@@ -84,4 +84,35 @@ public class ClienteDAO {
         }
         return objects;
     }
+
+    public Cliente findById(int id){
+        Cliente cliente = new Cliente();
+        try {
+
+            Connection coon = ConnectionMysql.openConnection();
+
+            String sqlFindByID = "SELECT * FROM cliente join pessoa on cliente.pessoa_idpessoa = pessoa.id_pessoa"+
+                    " where cliente.id_cliente = ?";
+
+            PreparedStatement statementFindById = coon.prepareStatement(sqlFindByID);
+            statementFindById.setInt(1, id);
+            ResultSet resultSet = statementFindById.executeQuery();
+
+            while (resultSet.next()){
+
+                cliente.setIdCliente(resultSet.getInt("id_cliente"));
+                cliente.setIdPessoa(resultSet.getInt("id_pessoa"));
+                cliente.setCpf(resultSet.getString("cpf"));
+                cliente.setNome(resultSet.getString("nome"));
+                cliente.setData_nascimento(resultSet.getDate("data_nascimento"));
+                cliente.setEmail(resultSet.getString("email"));
+                cliente.setTelefone(resultSet.getString("telefone"));
+            }
+
+        }catch (SQLException e){
+            System.out.println("Erro ao buscar "+e.getMessage());
+        }
+
+        return cliente;
+    }
 }
