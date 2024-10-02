@@ -2,7 +2,6 @@ package DAO;
 
 import Entidades.Estoque;
 import Util.ConnectionMysql;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,6 +63,34 @@ public class EstoqueDAO {
             System.out.println("Erro no findAll: "+e.getMessage());
         }
         return objects;
+    }
+
+    public Estoque findById(int id){
+        Estoque estoque = new Estoque();
+        try {
+
+            Connection coon = ConnectionMysql.openConnection();
+
+            String sqlFindByID = "SELECT * FROM estoque WHERE id_estoque = ?";
+
+            PreparedStatement statementFindById = coon.prepareStatement(sqlFindByID);
+            statementFindById.setInt(1, id);
+            ResultSet resultSet = statementFindById.executeQuery();
+
+            while (resultSet.next()){
+
+                estoque.setIdEstoque(resultSet.getInt("id_estoque"));
+                estoque.setMarca(resultSet.getString("marca"));
+                estoque.setModelo(resultSet.getString("modelo"));
+                estoque.setAno(resultSet.getDate("ano_fabricacao"));
+                estoque.setCor(resultSet.getString("cor"));
+            }
+
+        }catch (SQLException e){
+            System.out.println("Erro ao buscar "+e.getMessage());
+        }
+
+        return estoque;
     }
 
 
