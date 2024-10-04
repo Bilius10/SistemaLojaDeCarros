@@ -8,50 +8,21 @@ public class Venda {
     private Date dataVenda;
     private double total;
     private int status;
-    private Funcionario funcionario;
-    private Cliente cliente;
-    private Estoque estoque;
+    private int idFuncionario;
+    private int idCliente;
+    private int idEstoque;
 
-    public Venda(Cliente cliente, Date dataVenda, Estoque estoque, Funcionario funcionario, int idVenda, double total) {
-        this.cliente = cliente;
-        this.dataVenda = dataVenda;
-        this.estoque = estoque;
-        this.funcionario = funcionario;
+    public Venda(int idVenda, Date dataVenda, double total, int status, int idFuncionario, int idCliente, int idEstoque) {
         this.idVenda = idVenda;
-        this.status = 1;
-        this.total = total;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Date getDataVenda() {
-        return dataVenda;
-    }
-
-    public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
+        this.total = total;
+        this.status = status;
+        this.idFuncionario = idFuncionario;
+        this.idCliente = idCliente;
+        this.idEstoque = idEstoque;
     }
 
-    public Estoque getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(Estoque estoque) {
-        this.estoque = estoque;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public Venda() {
     }
 
     public int getIdVenda() {
@@ -62,12 +33,12 @@ public class Venda {
         this.idVenda = idVenda;
     }
 
-    public int getStatus() {
-        return status;
+    public Date getDataVenda() {
+        return dataVenda;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setDataVenda(Date dataVenda) {
+        this.dataVenda = dataVenda;
     }
 
     public double getTotal() {
@@ -76,5 +47,50 @@ public class Venda {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public int getIdEstoque() {
+        return idEstoque;
+    }
+
+    public void setIdEstoque(int idEstoque) {
+        this.idEstoque = idEstoque;
+    }
+
+    @Override
+    public String toString() {
+        return "Venda{" +
+                "idVenda=" + idVenda +
+                ", dataVenda=" + dataVenda +
+                ", total=" + total +
+                ", status=" + status +
+                ", idFuncionario=" + idFuncionario +
+                ", idCliente=" + idCliente +
+                ", idEstoque=" + idEstoque +
+                '}';
     }
 }
