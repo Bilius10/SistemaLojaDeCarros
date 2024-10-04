@@ -115,4 +115,25 @@ public class ClienteDAO {
 
         return cliente;
     }
+
+    public void deleteCliente(int id){
+        try {
+
+            Connection conn = ConnectionMysql.openConnection();
+
+            String sqlDelete = "Delete from cliente where id_cliente = ?";
+
+            PreparedStatement statementDelete = conn.prepareStatement(sqlDelete);
+            statementDelete.setInt(1, id);
+
+            int rowsAffected = statementDelete.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Funcionario excluido");
+            }
+
+        }catch (SQLException e){
+            System.out.println("Erro ao excluir Cliente: "+e.getMessage());
+        }
+
+    }
 }
