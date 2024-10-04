@@ -72,6 +72,12 @@ public class FuncionarioDAO {
 
             while (resultSet.next()){
                 Funcionario funcionario = new Funcionario();
+                funcionario.setIdFuncionario(resultSet.getInt("id_funcionario"));
+                funcionario.setCargo(resultSet.getString("cargo"));
+                funcionario.setSalario(resultSet.getDouble("salario"));
+                funcionario.setSetor(resultSet.getString("setor"));
+                funcionario.setStatus(resultSet.getInt("status"));
+                funcionario.setIdPessoa(resultSet.getInt("pessoa_idpessoa"));
                 objects.add(funcionario);
             }
 
@@ -102,7 +108,7 @@ public class FuncionarioDAO {
                 funcionario.setSalario(resultSet.getDouble("salario"));
                 funcionario.setSetor(resultSet.getString("setor"));
                 funcionario.setStatus(resultSet.getInt("status"));
-                funcionario.setIdPessoa(resultSet.getInt("id_pessoa"));
+                funcionario.setIdPessoa(resultSet.getInt("pessoa_idpessoa"));
                 funcionario.setCpf(resultSet.getString("cpf"));
                 funcionario.setNome(resultSet.getString("nome"));
                 funcionario.setData_nascimento(resultSet.getDate("data_nascimento"));
@@ -115,6 +121,27 @@ public class FuncionarioDAO {
         }
 
         return funcionario;
+    }
+
+    public void deleteFuncionario(int id){
+        try {
+
+            Connection conn = ConnectionMysql.openConnection();
+
+            String sqlDelete = "Delete from funcionario where id_funcionario = ?";
+
+            PreparedStatement statementDelete = conn.prepareStatement(sqlDelete);
+            statementDelete.setInt(1, id);
+
+            int rowsAffected = statementDelete.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Funcionario excluido");
+            }
+
+        }catch (SQLException e){
+            System.out.println("Erro ao excluir Cliente: "+e.getMessage());
+        }
+
     }
 }
 
