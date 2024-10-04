@@ -2,6 +2,7 @@ package DAO;
 
 import Entidades.Estoque;
 import Util.ConnectionMysql;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -91,6 +92,27 @@ public class EstoqueDAO {
         }
 
         return estoque;
+    }
+
+    public void deleteEstoque(int id){
+        try {
+
+            Connection conn = ConnectionMysql.openConnection();
+
+            String sqlDelete = "Delete from estoque where id_estoque = ?";
+
+            PreparedStatement statementDelete = conn.prepareStatement(sqlDelete);
+            statementDelete.setInt(1, id);
+
+            int rowsAffected = statementDelete.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Estoque excluido");
+            }
+
+        }catch (SQLException e){
+            System.out.println("Erro ao excluir Cliente: "+e.getMessage());
+        }
+
     }
 
 
