@@ -13,8 +13,28 @@ public class VendaDAO {
 
     public Venda createVenda(Venda venda){
 
-        try {
+       try {
             Connection coon = ConnectionMysql.openConnection();
+
+            String sqlCliente = "SELECT id_cliente FROM cliente WHERE id_cliente = ?";
+            PreparedStatement statementCliente = coon.prepareStatement(sqlCliente);
+            statementCliente.setInt(1, venda.getIdCliente());
+            ResultSet resultSetCliente = statementCliente.executeQuery();
+
+            if(!resultSetCliente.next()){
+                return null;
+            }
+
+            String sqlFuncionario = "SELECT id_funcionario FROM funcionario WHERE id_funcionario = ?";
+            PreparedStatement statementFuncionario = coon.prepareStatement(sqlFuncionario);
+            statementFuncionario.setInt(1, venda.getIdFuncionario());
+
+            ResultSet resultSetFuncionario = statementCliente.executeQuery();
+
+            if(!resultSetFuncionario.next()){
+                return null;
+            }
+
 
             String sql = "INSERT INTO venda (data_venda, total, status, id_funcionario, id_cliente, id_estoque)"+
                     "VALUES(?,?,?,?,?,?)";
@@ -26,7 +46,7 @@ public class VendaDAO {
             statement.setInt(4, venda.getIdFuncionario());
             statement.setInt(5, venda.getIdCliente());
             statement.setInt(6, venda.getIdEstoque());
-
+            ConnectionMysql.closeConnection();
 
         }catch (SQLException e){
             System.out.println("Erro ao salvar: "+e.getMessage());
